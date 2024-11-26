@@ -31,7 +31,7 @@ class MathProblem:
             
     def generateProblem(self):
         """Generates a new math problem for the task."""
-        self.op = rng.integers(1,3)
+        self.op = rng.integers(1,5)
         if self.op == 1: # addition problem
             self.num1 = rng.integers(1,56)
             self.num2 = rng.integers(1,56)
@@ -44,6 +44,23 @@ class MathProblem:
             self.sol = self.num1 * self.num2
             self.str = "%d * %d?" % (self.num1, self.num2) # convert to string that can be printed on lcd
             print("Task: ", self.num1, "*", self.num2, "=", self.sol)
+        elif self.op == 3: # subtraction problem
+            self.num1 = rng.integers(1,101)
+            self.num2 = rng.integers(1,101)
+            if self.num2 > self.num1:
+                self.sol = self.num2 - self.num1
+                self.str = "%d - %d?" % (self.num2, self.num1) # convert to string that can be printed on lcd
+                print("Task: ", self.num2, "-", self.num1, "=", self.sol)
+            elif self.num1 > self.num2:
+                self.sol = self.num1 - self.num2
+                self.str = "%d - %d?" % (self.num1, self.num2) # convert to string that can be printed on lcd
+                print("Task: ", self.num1, "-", self.num2, "=", self.sol)
+        elif self.op == 4: # division problem
+            self.num2 = rng.integers(1,13)
+            self.sol = rng.integers(1,13)
+            self.num1 = self.sol * self.num2
+            self.str = "%d / %d" % (self.num1, self.num2)
+            print("Task: ", self.num1, "/", self.num2, "=", self.sol)
             
             
 class AlarmConfig:
@@ -278,8 +295,8 @@ if __name__ == '__main__':
                 task1.currentTask = True
                 listener.stop()  # Stop the listener once the condition is met
                 break
-            alarmWaitingMsg()
-            sleep(.1)    
+            #alarmWaitingMsg()
+            sleep(1)    
             
         while task1.currentTask == True: # STARTS FIRST TASK
             if not taskSolved(task1,lcd):
@@ -295,6 +312,6 @@ if __name__ == '__main__':
             if not taskSolved(task3,lcd):
                 break
             alarm = False
-            
+                   
     print(f"Alarm has been turned off!")
     alarmOffMsg()                                                                  
